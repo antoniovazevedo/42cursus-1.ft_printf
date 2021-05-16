@@ -13,15 +13,16 @@ void	write_width(int len, int zero)
 	}
 }
 
-size_t ft_width(size_t width, size_t zero, size_t str_len)
+int ft_width(int width, int zero, int str_len)
 {
+	printf("\nwidth=%i \t str_len=%i \t %i\n", width, str_len, width - str_len);
 	if (str_len < width)
 	{
 		write_width(width - str_len, zero);
 		return width - str_len;
 	}
 
-	return 0;
+	return str_len;
 }
 
 void debug_params(t_struct *params)
@@ -216,5 +217,6 @@ int ft_printf(const char *str, ...)
 	va_end(ap);
 	len = params->global_len;
 	free(params);
+
 	return (len);
 }

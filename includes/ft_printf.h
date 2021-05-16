@@ -27,7 +27,7 @@ typedef struct	s_struct
 typedef char* string;
 
 int		ft_printf(const char *str, ...);
-size_t	ft_width(size_t width, size_t zero, size_t str_len);
+int		ft_width(int width, int zero, int str_len);
 void	print_int(t_struct *params, va_list ap);
 void	print_unsigned_int(t_struct *params, va_list ap);
 void	print_string(t_struct *params, va_list ap);
