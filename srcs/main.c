@@ -1,19 +1,27 @@
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
-int ft_width(int width, int zero, int str_len)
+void	write_width(int len, int zero)
 {
-	int printed_char_count;
-
-	printed_char_count = 0;
-	while (printed_char_count + str_len < width)
+	while (len > 0)
 	{
 		if (zero == 1)
 			ft_putchar_fd('0', 1);
 		else
 			ft_putchar_fd(' ', 1);
-		printed_char_count++;
+		len--;
 	}
-	return printed_char_count;
+}
+
+size_t ft_width(size_t width, size_t zero, size_t str_len)
+{
+	if (str_len < width)
+	{
+		write_width(width - str_len, zero);
+		return width - str_len;
+	}
+
+	return 0;
 }
 
 void debug_params(t_struct *params)
@@ -50,16 +58,22 @@ void format(char conversion, va_list ap, t_struct *params)
 {
 	// debug_params(params);
 
-	if (conversion == 'c')
+	if (conversion == '%')
+		print_percent(params);
+	else if (conversion == 'c')
 		print_char(params, ap);
 	else if (conversion == '%')
 		print_char(params, ap);
 	else if (conversion == 's')
 		print_string(params, ap);
-	else if (conversion == 'x' || conversion == 'X')
-		print_hex(params, ap);
 	else if (conversion == 'd' || conversion == 'i')
 		print_int(params, ap);
+	else if (conversion == 'u')
+		print_unsigned_int(params, ap);
+	else if (conversion == 'x' || conversion == 'X')
+		print_hex(params, ap);
+	else if (conversion == 'p')
+		print_pointer(params, ap);
 }
 
 void parse_flags(const char *str, t_struct *params)

@@ -1,4 +1,5 @@
 SRCS	= $(wildcard srcs/*.c)
+# SRCS	= srcs/char.c srcs/string.c srcs/int.c srcs/aux.c srcs/main.c
 
 OBJS	= ${SRCS:.c=.o}
 

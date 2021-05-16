@@ -1,47 +1,28 @@
 #include "../includes/ft_printf.h"
 #include <limits.h>
 
-int		get_len_with_precision(int nb, int nb_len, t_struct *params)
-{
-	if (params->precision > nb_len)
-		nb_len = params->precision;
-	if (nb < 0)
-		nb_len++;
-	return (nb_len);
-}
-
-char	*nb_to_str(int nb)
+char	*unsigned_nb_to_str(unsigned int nb)
 {
 	char	*str;
-	char	*str2;
-	char	*str3;
 
-	if (nb == INT_MIN)
-	{
-		str2 = ft_itoa(INT_MAX / 10);
-		str3 = ft_itoa(-(nb % 10));
-		str = ft_strjoin(str2, str3);
-		free(str2);
-		free(str3);
-	}
-	else if (nb < 0)
-		str = ft_itoa(-nb);
+	if (nb < 0)
+		str = ft_uitoa(-nb);
 	else
-		str = ft_itoa(nb);
+		str = ft_uitoa(nb);
 
 	return (str);
 }
 
-void print_int(t_struct *params, va_list ap)
+void print_unsigned_int(t_struct *params, va_list ap)
 {
-	int nb;
+	unsigned int nb;
 	int nb_len;
 	int len_with_precision;
 	char *nb_str;
 
-	nb = va_arg(ap, int);
+	nb = va_arg(ap, unsigned int);
 	nb_len = 0;
-	nb_str = nb_to_str(nb);
+	nb_str = unsigned_nb_to_str(nb);
 	if (nb != 0 || params->precision != 0)
 		nb_len = ft_strlen(nb_str);
 	len_with_precision = get_len_with_precision(nb, nb_len, params);

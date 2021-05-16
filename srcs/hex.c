@@ -8,7 +8,7 @@ int		ft_hex_len(unsigned long nb)
 	while (nb >= 16)
 	{
 		len++;
-		nb = nb / 16;
+		nb /= 16;
 	}
 
 	return (len);
@@ -53,6 +53,10 @@ void	print_hex(t_struct *params, va_list ap)
 		str = ft_int_to_hex(nb, params);
 	else if (nb == 0 && params->precision != 0)
 		str = "0";
+	if (params->conversion == 'p' && nb > 0)
+		str = ft_strjoin("0x10", str);
+	else
+		str = ft_strjoin("0x", str);
 	len = ft_strlen(str);
 	len_with_precision = len;
 	if (params->precision > len)
