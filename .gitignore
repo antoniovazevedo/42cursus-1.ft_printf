@@ -1,4 +1,8 @@
 printfTester
 pft
 42TESTERS-PRINTF
-pft/
+pft
+printf_tests
+*.o
+a.out
+*.a
