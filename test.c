@@ -38,10 +38,10 @@ int main(void)
 	*/
 	int ret;
 	int ret2;
-	char *str = "[% *.5i]";
+	char *str = "%%";
 
-	ret = printf(str, 4, 42);
+	ret = printf(str);
 	printf("ret=%i\n\n", ret);
-	ret2 = ft_printf(str,	4, 42);
+	ret2 = ft_printf(str);
 	printf("ret=%i\n\n", ret2);
 }
