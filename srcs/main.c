@@ -61,7 +61,7 @@ void reset_params(t_struct *params)
 
 void format(char conversion, va_list ap, t_struct *params)
 {
-	// 	debug_params(params);
+	// debug_params(params);
 	if (conversion == '%')
 		print_percent(params);
 	else if (conversion == 'c')

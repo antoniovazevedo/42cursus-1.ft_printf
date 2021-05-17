@@ -50,6 +50,11 @@ void print_int(t_struct *params, va_list ap)
 		params->global_len += aux_print_char('+');
 		len_with_precision++;
 	}
+	else if (params->space && nb >= 0)
+	{
+		params->global_len += aux_print_char(' ');
+		len_with_precision++;
+	}
 	if (nb < 0 && params->precision == -1 && params->zero)
 		params->global_len += aux_print_char('-');
 	if (params->width && !params->minus)
