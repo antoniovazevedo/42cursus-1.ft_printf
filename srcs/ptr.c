@@ -42,19 +42,14 @@ string ft_p_to_hex(unsigned long long nb, t_struct *params)
 string get_ptr_str(t_struct *params, va_list ap)
 {
 	unsigned long long nb;
-	char *temp_str;
-	char *str;
 
 	nb = (unsigned long long)va_arg(ap, void *);
-	temp_str = "";
 	if (nb)
-		temp_str = ft_p_to_hex(nb, params);
+		return (ft_p_to_hex(nb, params));
 	else if (nb == 0 && params->precision != 0)
-		temp_str = "0";
-	str = ft_strjoin("0x", temp_str);
-	if (nb)
-		free(temp_str);
-	return (str);
+		return (ft_strdup("0"));
+	else
+		return (ft_strdup(""));
 }
 
 void print_ptr(t_struct *params, va_list ap)
@@ -70,12 +65,14 @@ void print_ptr(t_struct *params, va_list ap)
 	if (params->precision > len)
 		len_with_precision = params->precision;
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_with_precision);
+		params->global_len += ft_width(params->width, params->zero, len_with_precision + 2);
+	ft_putstr_fd("0x", 1);
+	params->global_len += 2;
 	if (params->precision)
 		params->global_len += ft_width(params->precision, 1, len);
 	if (str)
 		params->global_len += aux_print_str(str, len);
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_with_precision);
+		params->global_len += ft_width(params->width, params->zero, len_with_precision + 2);
 	free(str);
 }

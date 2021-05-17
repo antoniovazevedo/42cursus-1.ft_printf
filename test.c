@@ -36,8 +36,15 @@ int main(void)
 							resultado é prefixado com zeros até perfazer nº de caracteres da precisão
 						se conversão é float, resultado é apresentado arredondado com nº de casas decimais igual à precisão  
 	*/
-	char *str2 = "[%09.0c]\n";
+	char *str = "POINTERS: STRING = %s, ADDRESS = [%.42p]\n";
 	// printf("INT_MAX is %i\n", INT_MAX);
-	printf(str2,	126);
-	ft_printf(str2,	126);
+	int ret;
+	int ret2;
+
+	char *str1 = "meow";
+
+	ret = printf(str, str1, str1);
+	printf("ret=%i\n\n", ret);
+	ret2 = ft_printf(str,	str1, str1);
+	printf("ret=%i\n\n", ret2);
 }

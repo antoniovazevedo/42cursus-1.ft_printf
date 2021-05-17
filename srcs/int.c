@@ -46,7 +46,10 @@ void print_int(t_struct *params, va_list ap)
 		nb_len = ft_strlen(nb_str);
 	len_with_precision = get_len_with_precision(nb, nb_len, params);
 	if (params->plus && nb >= 0)
+	{
 		params->global_len += aux_print_char('+');
+		len_with_precision++;
+	}
 	if (nb < 0 && params->precision == -1 && params->zero)
 		params->global_len += aux_print_char('-');
 	if (params->width && !params->minus)

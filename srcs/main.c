@@ -61,6 +61,7 @@ void reset_params(t_struct *params)
 
 void format(char conversion, va_list ap, t_struct *params)
 {
+	// 	debug_params(params);
 	if (conversion == '%')
 		print_percent(params);
 	else if (conversion == 'c')
@@ -156,27 +157,26 @@ void parse_precision(const char *str, va_list ap, t_struct *params)
 
 void parse_modifiers(const char *str, va_list ap, t_struct *params)
 {
-	reset_params(params);
 	parse_flags(str, params);
 	parse_width(str, ap, params);
 	parse_precision(str, ap, params);
 
-	if (params->precision > -1)
+	if (params->conversion != 's' &&
+		params->conversion != 'c' && 
+		params->precision > -1)
 		params->zero = 0;	
 }
 
-int parse(const char *str, va_list ap, t_struct *params)
+char parse_conversion(const char *str, t_struct *params)
 {
 	int len;
 	char *conversion;
 
-	// printf("%s\n", str);
 	len = 0;
 	conversion = NULL;
-	parse_modifiers(str, ap, params);
-	while (	ft_strchr(FLAG_SYMBOLS, *str) ||
-			ft_strchr(PRECISION_SYMBOLS, *str) || 
-			ft_strchr(CONVERSION_SYMBOLS, *str))
+	while (ft_strchr(FLAG_SYMBOLS, *str) ||
+		   ft_strchr(PRECISION_SYMBOLS, *str) ||
+		   ft_strchr(CONVERSION_SYMBOLS, *str))
 	{
 		len++;
 		conversion = ft_strchr(CONVERSION_SYMBOLS, *str);
@@ -184,11 +184,22 @@ int parse(const char *str, va_list ap, t_struct *params)
 			break;
 		str++;
 	}
-	// printf("conversion: %c\n", conversion[0]);
-	if (!conversion)
+
+	if (conversion)
+		params->conversion = conversion[0];
+	return (len);
+}
+
+int parse(const char *str, va_list ap, t_struct *params)
+{
+	int len;
+
+	reset_params(params);
+	len = parse_conversion(str, params);
+	if (!params->conversion)
 		return (0);
-	params->conversion = conversion[0];
-	format(conversion[0], ap, params);
+	parse_modifiers(str, ap, params);
+	format(params->conversion, ap, params);
 	return (len);
 }
 
