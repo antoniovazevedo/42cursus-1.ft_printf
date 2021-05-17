@@ -1,8 +1,8 @@
 #include "../includes/ft_printf.h"
 
-int		ft_hex_len(unsigned long nb)
+int ft_p_hex_len(unsigned long long nb)
 {
-	int	len;
+	int len;
 
 	len = 1;
 	while (nb >= 16)
@@ -14,7 +14,7 @@ int		ft_hex_len(unsigned long nb)
 	return (len);
 }
 
-string ft_int_to_hex(unsigned long nb, t_struct *params)
+string ft_p_to_hex(unsigned long long nb, t_struct *params)
 {
 	int len;
 	char *base;
@@ -24,7 +24,7 @@ string ft_int_to_hex(unsigned long nb, t_struct *params)
 		base = "0123456789ABCDEF";
 	else
 		base = "0123456789abcdef";
-	len = ft_hex_len(nb);
+	len = ft_p_hex_len(nb);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -39,20 +39,32 @@ string ft_int_to_hex(unsigned long nb, t_struct *params)
 	return (str);
 }
 
-void	print_hex(t_struct *params, va_list ap)
+string get_ptr_str(t_struct *params, va_list ap)
 {
-	unsigned int	nb;
-	int				len;
-	int				len_with_precision;
-	char			*str;
+	unsigned long long nb;
+	char *temp_str;
+	char *str;
 
-	nb = va_arg(ap, unsigned int);
-	len = 0;
-	str = "";
+	nb = (unsigned long long)va_arg(ap, void *);
+	temp_str = "";
 	if (nb)
-		str = ft_int_to_hex(nb, params);
+		temp_str = ft_p_to_hex(nb, params);
 	else if (nb == 0 && params->precision != 0)
-		str = "0";
+		temp_str = "0";
+	str = ft_strjoin("0x", temp_str);
+	if (nb)
+		free(temp_str);
+	return (str);
+}
+
+void print_ptr(t_struct *params, va_list ap)
+{
+	int					len;
+	int					len_with_precision;
+	char				*str;
+
+	len = 0;
+	str = get_ptr_str(params, ap);
 	len = ft_strlen(str);
 	len_with_precision = len;
 	if (params->precision > len)
@@ -65,6 +77,5 @@ void	print_hex(t_struct *params, va_list ap)
 		params->global_len += aux_print_str(str, len);
 	if (params->width && params->minus)
 		params->global_len += ft_width(params->width, params->zero, len_with_precision);
-	if (nb)
-		free(str);
+	free(str);
 }

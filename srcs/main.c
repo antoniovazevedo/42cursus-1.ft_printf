@@ -76,7 +76,7 @@ void format(char conversion, va_list ap, t_struct *params)
 	else if (conversion == 'x' || conversion == 'X')
 		print_hex(params, ap);
 	else if (conversion == 'p')
-		print_pointer(params, ap);
+		print_ptr(params, ap);
 }
 
 void parse_flags(const char *str, t_struct *params)

@@ -34,7 +34,7 @@ void	print_string(t_struct *params, va_list ap);
 void	print_char(t_struct *params, va_list ap);
 void	print_percent(t_struct *params);
 void	print_hex(t_struct *params, va_list ap);
-void	print_pointer(t_struct *params, va_list ap);
+void	print_ptr(t_struct *params, va_list ap);
 int		aux_print_str(char *str, int len);
 int		aux_print_char(char c);
 int 	get_len_with_precision(int nb, int nb_len, t_struct *params);
