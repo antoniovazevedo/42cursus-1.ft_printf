@@ -15,14 +15,18 @@ void	write_width(int len, int zero)
 
 int ft_width(int width, int zero, int str_len)
 {
-	printf("\nwidth=%i \t str_len=%i \t %i\n", width, str_len, width - str_len);
-	if (str_len < width)
-	{
-		write_width(width - str_len, zero);
-		return width - str_len;
-	}
+	int printed_char_count;
 
-	return str_len;
+	printed_char_count = 0;
+	while (printed_char_count + str_len < width)
+	{
+		if (zero == 1)
+			ft_putchar_fd('0', 1);
+		else
+			ft_putchar_fd(' ', 1);
+		printed_char_count++;
+	}
+	return printed_char_count;
 }
 
 void debug_params(t_struct *params)
@@ -57,8 +61,6 @@ void reset_params(t_struct *params)
 
 void format(char conversion, va_list ap, t_struct *params)
 {
-	// debug_params(params);
-
 	if (conversion == '%')
 		print_percent(params);
 	else if (conversion == 'c')

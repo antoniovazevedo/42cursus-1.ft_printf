@@ -34,7 +34,7 @@ void print_unsigned_int(t_struct *params, va_list ap)
 		params->global_len += ft_width(params->width, params->zero, len_with_precision);
 	if (nb < 0 && (!params->zero || params->precision > -1))
 		params->global_len += aux_print_char('-');
-	if (params->precision)
+	if (params->precision >= 0)
 		params->global_len += ft_width(params->precision, 1, nb_len);
 	if (nb != 0 || params->precision != 0)
 		params->global_len += aux_print_str(nb_str, nb_len);

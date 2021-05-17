@@ -36,9 +36,8 @@ int main(void)
 							resultado é prefixado com zeros até perfazer nº de caracteres da precisão
 						se conversão é float, resultado é apresentado arredondado com nº de casas decimais igual à precisão  
 	*/
-	char *str2 = "<%5%>\n";
+	char *str2 = "<%0*.*u>\n";
 	// printf("INT_MAX is %i\n", INT_MAX);
-	char c = 'c';
-	printf(str2);
-	ft_printf(str2);
+	printf(str2, 10, -101);
+	ft_printf(str2, 10, -101);
 }
