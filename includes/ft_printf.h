@@ -1,16 +1,16 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#define CONVERSION_SYMBOLS "cspdiuxXnfge%"
-#define FLAG_SYMBOLS "-+ 0#"
-#define PRECISION_SYMBOLS ".0123456789*"
+# define	CONVERSION_SYMBOLS "cspdiuxXnfge%"
+# define FLAG_SYMBOLS "-+ 0#"
+# define PRECISION_SYMBOLS ".0123456789*"
 
 # include "../libft/libft.h"
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct	s_struct
+typedef struct s_struct
 {
 	char	conversion;
 	int		minus;
@@ -24,7 +24,7 @@ typedef struct	s_struct
 	int		global_len;
 }				t_struct;
 
-typedef char* string;
+typedef char*	t_string;
 
 int		ft_printf(const char *str, ...);
 int		ft_width(int width, int zero, int str_len);
@@ -37,6 +37,7 @@ void	print_hex(t_struct *params, va_list ap);
 void	print_ptr(t_struct *params, va_list ap);
 int		aux_print_str(char *str, int len);
 int		aux_print_char(char c);
-int 	get_len_with_precision(int nb, int nb_len, t_struct *params);
+void	parse_modifiers(const char *str, va_list ap, t_struct *params);
+char	parse_conversion(const char *str, t_struct *params);
 
 #endif

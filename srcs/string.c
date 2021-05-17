@@ -2,14 +2,13 @@
 
 void	print_string(t_struct *params, va_list ap)
 {
-	char *str;
-	char *substr;
+	char	*str;
+	char	*substr;
 	int		len;
 
 	str = va_arg(ap, char *);
 	substr = NULL;
 	len = 0;
-
 	if (!str)
 		str = "(null)";
 	if (params->precision > -1)
@@ -17,10 +16,8 @@ void	print_string(t_struct *params, va_list ap)
 		substr = ft_substr(str, 0, params->precision);
 		str = substr;
 	}
-
 	if (str)
 		len = ft_strlen(str);
-
 	if (params->width && !params->minus)
 		params->global_len += ft_width(params->width, params->zero, len);
 	if (str)
@@ -29,5 +26,5 @@ void	print_string(t_struct *params, va_list ap)
 	if (params->width && params->minus)
 		params->global_len += ft_width(params->width, params->zero, len);
 	if (substr)
-	free(substr);
+		free(substr);
 }

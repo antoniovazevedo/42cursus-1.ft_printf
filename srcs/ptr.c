@@ -1,8 +1,8 @@
 #include "../includes/ft_printf.h"
 
-int ft_p_hex_len(unsigned long long nb)
+static int	ft_p_hex_len(unsigned long long nb)
 {
-	int len;
+	int	len;
 
 	len = 1;
 	while (nb >= 16)
@@ -10,15 +10,14 @@ int ft_p_hex_len(unsigned long long nb)
 		len++;
 		nb /= 16;
 	}
-
 	return (len);
 }
 
-string ft_p_to_hex(unsigned long long nb, t_struct *params)
+static t_string	ft_p_to_hex(unsigned long long nb, t_struct *params)
 {
-	int len;
-	char *base;
-	char *str;
+	int		len;
+	char	*base;
+	char	*str;
 
 	if (params->conversion == 'X')
 		base = "0123456789ABCDEF";
@@ -35,37 +34,35 @@ string ft_p_to_hex(unsigned long long nb, t_struct *params)
 		nb /= 16;
 		len--;
 	}
-
 	return (str);
 }
 
-string get_ptr_str(t_struct *params, va_list ap)
+static t_string	get_ptr_str(t_struct *params, va_list ap)
 {
-	unsigned long long nb;
+	unsigned long long	nb;
 
 	nb = (unsigned long long)va_arg(ap, void *);
 	if (nb)
 		return (ft_p_to_hex(nb, params));
 	else if (nb == 0 && params->precision != 0)
 		return (ft_strdup("0"));
-	else
-		return (ft_strdup(""));
+	return (ft_strdup(""));
 }
 
-void print_ptr(t_struct *params, va_list ap)
+void	print_ptr(t_struct *params, va_list ap)
 {
 	int					len;
-	int					len_with_precision;
+	int					len_w_prec;
 	char				*str;
 
 	len = 0;
 	str = get_ptr_str(params, ap);
 	len = ft_strlen(str);
-	len_with_precision = len;
+	len_w_prec = len;
 	if (params->precision > len)
-		len_with_precision = params->precision;
+		len_w_prec = params->precision;
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_with_precision + 2);
+		params->global_len += ft_width(params->width, params->zero, len_w_prec + 2);
 	ft_putstr_fd("0x", 1);
 	params->global_len += 2;
 	if (params->precision)
@@ -73,6 +70,6 @@ void print_ptr(t_struct *params, va_list ap)
 	if (str)
 		params->global_len += aux_print_str(str, len);
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_with_precision + 2);
+		params->global_len += ft_width(params->width, params->zero, len_w_prec + 2);
 	free(str);
 }

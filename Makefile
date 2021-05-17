@@ -16,6 +16,8 @@ ${NAME}:libft.a ${OBJS}
 		cp libft/libft.a libftprintf.a
 		${AR} ${NAME} ${OBJS}
 
+bonus: ${NAME}
+
 %.o:	%.c
 		${CC} ${CFLAGS} -c $< -o $@ -I ${INCDIR}
 
