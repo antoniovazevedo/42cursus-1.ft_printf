@@ -1,6 +1,15 @@
 #include "../includes/ft_printf.h"
 #include <limits.h>
 
+int get_unsigned_len_with_precision(unsigned int nb, int nb_len, t_struct *params)
+{
+	if (params->precision > nb_len)
+		nb_len = params->precision;
+	if (nb < 0)
+		nb_len++;
+	return (nb_len);
+}
+
 char	*unsigned_nb_to_str(unsigned int nb)
 {
 	char	*str;
@@ -12,6 +21,7 @@ char	*unsigned_nb_to_str(unsigned int nb)
 
 	return (str);
 }
+
 
 void print_unsigned_int(t_struct *params, va_list ap)
 {
@@ -25,7 +35,7 @@ void print_unsigned_int(t_struct *params, va_list ap)
 	nb_str = unsigned_nb_to_str(nb);
 	if (nb != 0 || params->precision != 0)
 		nb_len = ft_strlen(nb_str);
-	len_with_precision = get_len_with_precision(nb, nb_len, params);
+	len_with_precision = get_unsigned_len_with_precision(nb, nb_len, params);
 	if (params->plus && nb >= 0)
 		params->global_len += aux_print_char('+');
 	if (nb < 0 && params->precision == -1 && params->zero)
