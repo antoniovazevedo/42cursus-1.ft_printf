@@ -37,6 +37,5 @@ int	aux_print_plus_or_space(t_struct *params, int nb)
 		ret = aux_print_char('+');
 	else if (params->space && nb >= 0)
 		ret = aux_print_char(' ');
-	params->g_len += ret;
 	return (ret);
 }

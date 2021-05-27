@@ -1,8 +1,14 @@
-SRCS	= $(wildcard srcs/*.c)
-# SRCS	= srcs/char.c srcs/string.c srcs/int.c srcs/aux.c srcs/main.c
+SRCS	=	srcs/aux.c \
+			srcs/char.c \
+			srcs/hex.c \
+			srcs/int.c \
+			srcs/main.c \
+			srcs/parse_params.c \
+			srcs/ptr.c \
+			srcs/string.c \
+			srcs/unsigned_int.c
 
 OBJS	= ${SRCS:.c=.o}
-
 INCDIR	= includes
 NAME	= libftprintf.a
 AR		= ar -rcs
