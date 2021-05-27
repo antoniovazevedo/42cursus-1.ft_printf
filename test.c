@@ -30,12 +30,12 @@ int main(void)
 	*/
 
 
-	char *str = "<asdad %10.0d asdad>";
+	char *str = "<%-2.3s>";
 
-	printf(str, 0);
+	printf(str, "0");
 	printf("\n");
 
-	ft_printf(str, 0);
+	ft_printf(str, "0");
 	printf("\n\n");
 	return 0;
 }

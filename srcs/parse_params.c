@@ -81,18 +81,17 @@ static void	parse_precision(const char *str, va_list ap, t_struct *params)
 		free(sub);
 	}
 
-	if (params->precision > params->width)
-	{
-		params->width = 0;
-		return;
-	}
-	if (abs(params->precision) > params->width)
+	// if (params->precision > params->width)
+	// {
+	// 	params->width = 0;
+	// 	return;
+	// }
+	if (params->precision < -1)
 		params->precision = -1;
-	else if (params->precision < 0)
-	{
-		params->minus = 1;
-		params->precision = -params->precision;
-	}
+
+	// if (abs(params->precision) > params->width)
+	// 	params->precision = -1;
+	
 }
 
 void	parse_modifiers(const char *str, va_list ap, t_struct *params)
