@@ -37,11 +37,8 @@ static t_string	ft_int_to_hex(unsigned long nb, t_struct *params)
 	return (str);
 }
 
-t_string	get_hex_string(t_struct *params, va_list ap)
+t_string	get_hex_string(unsigned long nb, t_struct *params)
 {
-	unsigned int	nb;
-
-	nb = va_arg(ap, unsigned int);
 	if (nb)
 		return (ft_int_to_hex(nb, params));
 	else if (nb == 0 && params->precision != 0)
@@ -54,14 +51,33 @@ void	print_hex(t_struct *params, va_list ap)
 	int				len;
 	int				len_w_prec;
 	char			*str;
+	unsigned int	nb;
+	char *af;
 
-	str = get_hex_string(params, ap);
+	nb = va_arg(ap, unsigned int);
+	str = get_hex_string(nb, params);
 	len = ft_strlen(str);
 	len_w_prec = len;
 	if (params->precision > len)
 		len_w_prec = params->precision;
+
+	af = "0x";
+	if (params->conversion == 'X')
+		af = "0X";
+
+
+	if (params->hash && nb != 0)
+		len_w_prec += 2;
+
+	if (params->hash && nb != 0 && params->zero)
+		params->global_len += aux_print_str(af, 2);
+		
 	if (params->width && !params->minus)
 		params->global_len += ft_width(params->width, params->zero, len_w_prec);
+
+	if (params->hash && nb != 0 && !params->zero)
+		params->global_len += aux_print_str(af, 2);
+		
 	if (params->precision)
 		params->global_len += ft_width(params->precision, 1, len);
 	if (str)
