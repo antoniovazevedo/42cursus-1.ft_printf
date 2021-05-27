@@ -30,12 +30,14 @@ int main(void)
 	*/
 
 
-	char *str = "<%-2.3s>";
+	char *str = "<%+.7d>";
+	// char *str = "<%+10d>";
+	// char *str = "<%+05i>";
 
-	printf(str, "0");
+	printf(str, 234);
 	printf("\n");
 
-	ft_printf(str, "0");
+	ft_printf(str, 234);
 	printf("\n\n");
 	return 0;
 }
