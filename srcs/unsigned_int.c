@@ -31,18 +31,18 @@ void	print_unsigned_int(t_struct *params, va_list ap)
 		nb_len = ft_strlen(nb_str);
 	len_w_prec = unsigned_len_w_prec(nb, nb_len, params);
 	if (params->plus && nb >= 0)
-		params->global_len += aux_print_char('+');
+		params->g_len += aux_print_char('+');
 	if (nb < 0 && params->precision == -1 && params->zero)
-		params->global_len += aux_print_char('-');
+		params->g_len += aux_print_char('-');
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec);
 	if (nb < 0 && (!params->zero || params->precision > -1))
-		params->global_len += aux_print_char('-');
+		params->g_len += aux_print_char('-');
 	if (params->precision >= 0)
-		params->global_len += ft_width(params->precision, 1, nb_len);
+		params->g_len += ft_width(params->precision, 1, nb_len);
 	if (nb != 0 || params->precision != 0)
-		params->global_len += aux_print_str(nb_str, nb_len);
+		params->g_len += aux_print_str(nb_str, nb_len);
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec);
 	free(nb_str);
 }

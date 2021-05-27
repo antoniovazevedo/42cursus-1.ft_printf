@@ -67,14 +67,14 @@ void	print_hex(t_struct *params, va_list ap)
 	if (params->hash && nb != 0)
 		len_w_prec += 2;
 	if (params->hash && nb != 0 && params->zero)
-		params->global_len += aux_print_alt_format(params);
+		params->g_len += aux_print_alt_format(params);
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec);
 	if (params->hash && nb != 0 && !params->zero)
-		params->global_len += aux_print_alt_format(params);
-	params->global_len += ft_width(params->precision, 1, len);
-	params->global_len += aux_print_str(str, len);
+		params->g_len += aux_print_alt_format(params);
+	params->g_len += ft_width(params->precision, 1, len);
+	params->g_len += aux_print_str(str, len);
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec);
 	free(str);
 }

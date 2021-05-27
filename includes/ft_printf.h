@@ -21,7 +21,7 @@ typedef struct s_struct
 	int			width;
 	int			precision;
 	int			str_len;
-	int			global_len;
+	int			g_len;
 }				t_struct;
 
 typedef char*	t_string;

@@ -1,12 +1,5 @@
 #include "../includes/ft_printf.h"
 
-int abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
 static void	parse_flags(const char *str, t_struct *params)
 {
 	while (ft_strchr(FLAG_SYMBOLS, *str))
@@ -80,18 +73,8 @@ static void	parse_precision(const char *str, va_list ap, t_struct *params)
 		params->precision = ft_atoi(sub);
 		free(sub);
 	}
-
-	// if (params->precision > params->width)
-	// {
-	// 	params->width = 0;
-	// 	return;
-	// }
 	if (params->precision < -1)
 		params->precision = -1;
-
-	// if (abs(params->precision) > params->width)
-	// 	params->precision = -1;
-	
 }
 
 void	parse_modifiers(const char *str, va_list ap, t_struct *params)

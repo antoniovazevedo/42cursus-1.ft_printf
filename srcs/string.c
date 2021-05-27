@@ -19,12 +19,12 @@ void	print_string(t_struct *params, va_list ap)
 	if (str)
 		len = ft_strlen(str);
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len);
+		params->g_len += ft_width(params->width, params->zero, len);
 	if (str)
 		ft_putstr_fd(str, 1);
-	params->global_len += len;
+	params->g_len += len;
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len);
+		params->g_len += ft_width(params->width, params->zero, len);
 	if (substr)
 		free(substr);
 }

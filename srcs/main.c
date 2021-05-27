@@ -1,24 +1,7 @@
 #include "../includes/ft_printf.h"
 #include <stdio.h>
 
-void debug_params(t_struct *params)
-{
-	printf("\n-----------------------\n");
-	printf("\tconversion: \t%c\n", params->conversion);
-	printf("\tminus: \t\t%d\n", params->minus);
-	printf("\tplus: \t\t%d\n", params->plus);
-	printf("\tzero: \t\t%d\n", params->zero);
-	printf("\tspace: \t\t%d\n", params->space);
-	printf("\thash: \t\t%d\n", params->hash);
-	printf("\twidth: \t\t%d\n", params->width);
-	printf("\tprecision: \t%d\n", params->precision);
-	printf("\tstr_len: \t%d\n", params->str_len);
-	printf("\tglobal_len: \t%d\n", params->global_len);
-	printf("\n-----------------------\n");
-
-}
-
-static void	reset_params(t_struct *params, int inc_global_len)
+static void	reset_params(t_struct *params, int inc_g_len)
 {
 	params->conversion = 0;
 	params->minus = 0;
@@ -29,8 +12,8 @@ static void	reset_params(t_struct *params, int inc_global_len)
 	params->width = 0;
 	params->precision = -1;
 	params->str_len = 0;
-	if (inc_global_len == 1)
-		params->global_len = 0;
+	if (inc_g_len == 1)
+		params->g_len = 0;
 }
 
 static void	handle_n_conversion(t_struct *params, va_list ap)
@@ -38,12 +21,11 @@ static void	handle_n_conversion(t_struct *params, va_list ap)
 	int	*ptr;
 
 	ptr = va_arg(ap, int *);
-	*ptr = params->global_len;
+	*ptr = params->g_len;
 }
 
 static void	format(char conversion, va_list ap, t_struct *params)
 {
-	// debug_params(params);
 	if (conversion == '%')
 		print_percent(params);
 	else if (conversion == 'c')
@@ -97,11 +79,11 @@ int	ft_printf(const char *str, ...)
 		else
 		{
 			ft_putchar_fd(str[i++], 1);
-			params->global_len++;
+			params->g_len++;
 		}
 	}
 	va_end(ap);
-	len = params->global_len;
+	len = params->g_len;
 	free(params);
 	return (len);
 }

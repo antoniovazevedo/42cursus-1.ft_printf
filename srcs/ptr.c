@@ -62,14 +62,14 @@ void	print_ptr(t_struct *params, va_list ap)
 	if (params->precision > len)
 		len_w_prec = params->precision;
 	if (params->width && !params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec + 2);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec + 2);
 	ft_putstr_fd("0x", 1);
-	params->global_len += 2;
+	params->g_len += 2;
 	if (params->precision)
-		params->global_len += ft_width(params->precision, 1, len);
+		params->g_len += ft_width(params->precision, 1, len);
 	if (str)
-		params->global_len += aux_print_str(str, len);
+		params->g_len += aux_print_str(str, len);
 	if (params->width && params->minus)
-		params->global_len += ft_width(params->width, params->zero, len_w_prec + 2);
+		params->g_len += ft_width(params->width, params->zero, len_w_prec + 2);
 	free(str);
 }
