@@ -12,16 +12,16 @@
 
 typedef struct s_struct
 {
-	char	conversion;
-	int		minus;
-	int		plus;
-	int		zero;
-	int		space;
-	int		hash;
-	int		width;
-	int		precision;
-	int		str_len;
-	int		global_len;
+	char		conversion;
+	int			minus;
+	int			plus;
+	int			zero;
+	int			space;
+	int			hash;
+	int			width;
+	int			precision;
+	int			str_len;
+	int			global_len;
 }				t_struct;
 
 typedef char*	t_string;

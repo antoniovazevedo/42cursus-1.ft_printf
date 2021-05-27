@@ -104,9 +104,6 @@ void	parse_modifiers(const char *str, va_list ap, t_struct *params)
 		&& !params->minus
 		&& params->precision > -1)
 		params->zero = 0;
-	
-	// if (params->width && params->precision > -1 && params->minus)
-	// 	params->width = 0;
 }
 
 char	parse_conversion(const char *str, t_struct *params)

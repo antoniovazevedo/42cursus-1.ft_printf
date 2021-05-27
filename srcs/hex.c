@@ -46,13 +46,17 @@ t_string	get_hex_string(unsigned long nb, t_struct *params)
 	return (ft_strdup(""));
 }
 
+int	aux_print_alt_format(t_struct *params)
+{
+	return (aux_print_char('0') + aux_print_char(params->conversion));
+}
+
 void	print_hex(t_struct *params, va_list ap)
 {
 	int				len;
 	int				len_w_prec;
 	char			*str;
 	unsigned int	nb;
-	char *af;
 
 	nb = va_arg(ap, unsigned int);
 	str = get_hex_string(nb, params);
@@ -60,28 +64,16 @@ void	print_hex(t_struct *params, va_list ap)
 	len_w_prec = len;
 	if (params->precision > len)
 		len_w_prec = params->precision;
-
-	af = "0x";
-	if (params->conversion == 'X')
-		af = "0X";
-
-
 	if (params->hash && nb != 0)
 		len_w_prec += 2;
-
 	if (params->hash && nb != 0 && params->zero)
-		params->global_len += aux_print_str(af, 2);
-		
+		params->global_len += aux_print_alt_format(params);
 	if (params->width && !params->minus)
 		params->global_len += ft_width(params->width, params->zero, len_w_prec);
-
 	if (params->hash && nb != 0 && !params->zero)
-		params->global_len += aux_print_str(af, 2);
-		
-	if (params->precision)
-		params->global_len += ft_width(params->precision, 1, len);
-	if (str)
-		params->global_len += aux_print_str(str, len);
+		params->global_len += aux_print_alt_format(params);
+	params->global_len += ft_width(params->precision, 1, len);
+	params->global_len += aux_print_str(str, len);
 	if (params->width && params->minus)
 		params->global_len += ft_width(params->width, params->zero, len_w_prec);
 	free(str);
