@@ -27,3 +27,16 @@ int	aux_print_char(char c)
 	ft_putchar_fd(c, 1);
 	return (1);
 }
+
+int	aux_print_plus_or_space(t_struct *params, int nb)
+{
+	int	ret;
+
+	ret = 0;
+	if (params->plus && nb >= 0)
+		ret = aux_print_char('+');
+	else if (params->space && nb >= 0)
+		ret = aux_print_char(' ');
+	params->g_len += ret;
+	return (ret);
+}

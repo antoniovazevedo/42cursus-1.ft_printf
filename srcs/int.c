@@ -23,29 +23,12 @@ static char	*nb_to_str(int nb)
 	return (ft_itoa(nb));
 }
 
-static int	aux_print_plus_or_space(t_struct *params, int nb)
+void	print_int_do(int nb, int nb_len, char *nb_str, t_struct *params)
 {
-	int	ret;
-
-	ret = 0;
-	if (params->plus && nb >= 0)
-		ret = aux_print_char('+');
-	else if (params->space && nb >= 0)
-		ret = aux_print_char(' ');
-	params->g_len += ret;
-	return (ret);
-}
-
-void	print_int_do(int nb, char *nb_str, t_struct *params)
-{
-	int		nb_len;
 	int		pad;
 	int		has_width;
 
-	nb_len = 0;
 	pad = 0;
-	if (nb != 0 || params->precision != 0)
-		nb_len = ft_strlen(nb_str);
 	if (params->precision > nb_len)
 		pad = params->precision - nb_len;
 	nb_len += (nb < 0 || params->plus || params->space);
@@ -70,10 +53,14 @@ void	print_int_do(int nb, char *nb_str, t_struct *params)
 void	print_int(t_struct *params, va_list ap)
 {
 	int		nb;
+	int		nb_len;
 	char	*nb_str;
 
 	nb = va_arg(ap, int);
+	nb_len = 0;
 	nb_str = nb_to_str(nb);
-	print_int_do(nb, nb_str, params);
+	if (nb != 0 || params->precision != 0)
+		nb_len = ft_strlen(nb_str);
+	print_int_do(nb, nb_len, nb_str, params);
 	free(nb_str);
 }

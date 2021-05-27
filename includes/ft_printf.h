@@ -37,6 +37,7 @@ void	print_hex(t_struct *params, va_list ap);
 void	print_ptr(t_struct *params, va_list ap);
 int		aux_print_str(char *str, int len);
 int		aux_print_char(char c);
+int		aux_print_plus_or_space(t_struct *params, int nb);
 void	parse_modifiers(const char *str, va_list ap, t_struct *params);
 char	parse_conversion(const char *str, t_struct *params);
 
