@@ -1,5 +1,12 @@
 #include "../includes/ft_printf.h"
 
+int abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
 static void	parse_flags(const char *str, t_struct *params)
 {
 	while (ft_strchr(FLAG_SYMBOLS, *str))
@@ -64,15 +71,28 @@ static void	parse_precision(const char *str, va_list ap, t_struct *params)
 		return ;
 	start = i + 1;
 	if (str[start] == '*')
-	{
 		params->precision = va_arg(ap, int);
-		return ;
+	else
+	{
+		while (!ft_strchr(CONVERSION_SYMBOLS, str[i]))
+			i++;
+		sub = ft_substr(str, start, i - start);
+		params->precision = ft_atoi(sub);
+		free(sub);
 	}
-	while (!ft_strchr(CONVERSION_SYMBOLS, str[i]))
-		i++;
-	sub = ft_substr(str, start, i - start);
-	params->precision = ft_atoi(sub);
-	free(sub);
+
+	if (params->precision > params->width)
+	{
+		params->width = 0;
+		return;
+	}
+	if (abs(params->precision) > params->width)
+		params->precision = -1;
+	else if (params->precision < 0)
+	{
+		params->minus = 1;
+		params->precision = -params->precision;
+	}
 }
 
 void	parse_modifiers(const char *str, va_list ap, t_struct *params)
@@ -82,8 +102,12 @@ void	parse_modifiers(const char *str, va_list ap, t_struct *params)
 	parse_precision(str, ap, params);
 	if (params->conversion != 's'
 		&& params->conversion != 'c'
+		&& !params->minus
 		&& params->precision > -1)
 		params->zero = 0;
+	
+	// if (params->width && params->precision > -1 && params->minus)
+	// 	params->width = 0;
 }
 
 char	parse_conversion(const char *str, t_struct *params)
